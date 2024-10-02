@@ -14,10 +14,11 @@ import java.util.List;
 @Slf4j
 public class UserServiceImpl implements UserService {
 
-    private final List<User> users;
-    public UserServiceImpl() {
-        this.users = new ArrayList<>();
-    }
+   // private final List<User> users;
+    //private UserServiceImpl() {
+        //this.users = new ArrayList<>();
+    //}
+   private final List<User> users = new ArrayList<>(); //review change
 
     @Override
     public User createUser(User user) {
