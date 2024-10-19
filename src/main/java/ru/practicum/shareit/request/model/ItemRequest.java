@@ -3,19 +3,12 @@ package ru.practicum.shareit.request.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 import ru.practicum.shareit.user.model.User;
 
 
-
+@Data
 @Entity
-@Getter
-@Setter
-@ToString
-@RequiredArgsConstructor
 @Table(name = "requests")
 public class ItemRequest {
 
@@ -27,7 +20,6 @@ public class ItemRequest {
     @Column(nullable = false)
     private String description;
     @ManyToOne
-    @ToString.Exclude
     @JoinColumn(name = "user_id")
     private User requestor;
 }
