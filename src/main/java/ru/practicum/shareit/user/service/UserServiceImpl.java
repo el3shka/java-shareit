@@ -1,81 +1,58 @@
 package ru.practicum.shareit.user.service;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import ru.practicum.shareit.user.exception.ConflictException;
-import ru.practicum.shareit.user.exception.NotFoundException;
 import ru.practicum.shareit.user.model.User;
-import ru.practicum.shareit.user.exception.ValidationException;
+import ru.practicum.shareit.user.repo.UserRepository;
+import ru.practicum.shareit.exception.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-   // private final List<User> users;
-    //private UserServiceImpl() {
-        //this.users = new ArrayList<>();
-    //}
-   private final List<User> users = new ArrayList<>(); //review change
+    private final UserRepository userRepository;
 
     @Override
     public User createUser(User user) {
-        if (user.getEmail() == null) {
-            throw new ValidationException("Email cannot be null()");
+        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+            throw new ConflictException("User with email " + user.getEmail() + " already exists");
         }
-        users.stream().filter(user1 -> user1.getEmail().equals(user.getEmail()))
-                .findFirst()
-                .ifPresent(user1 -> {
-                    throw new ConflictException("User with email " + user.getEmail() + " already exists");
-                });
-        Long newId = setCurrentId(); // Генерация нового ID
-        user.setId(newId);
-        log.info("Setting ID for new user: {}", newId);
-        users.add(user);
-        return user;
+        return userRepository.save(user);
     }
 
     @Override
     public User getUser(Long userId) {
-        return users.stream()
-                .filter(user -> user.getId().equals(userId))
-                .findFirst()
-                .orElseThrow(() -> new NotFoundException("User with id " + userId + " not found"));
+        return userRepository.findById(userId).orElseThrow(() -> new NotFoundException("User with id " +
+                userId + " not found"));
     }
 
     @Override
     public void deleteUser(Long userId) {
-        users.removeIf(user -> user.getId().equals(userId));
+        userRepository.deleteById(userId);
     }
 
     @Override
     public User updateUser(User user) {
-        Long userId = user.getId();
-        User updatedUser = users.stream().filter(user1 -> user1.getId().equals(userId))
-                .findFirst().orElseThrow(() -> new NotFoundException("User with id " + userId + " not found"));
-
+        User exsistingUser = userRepository.findById(user.getId()).orElseThrow(() -> new NotFoundException("User " +
+                "with id " + user.getId() + " not found"));
         if (user.getEmail() != null) {
-            users.stream().filter(user1 -> user1.getEmail().equals(user.getEmail()))
-                    .findFirst()
-                    .ifPresent(user1 -> {
-                        throw new ConflictException("User with email " + user.getEmail() + " already exists");
-                    });
-            updatedUser.setEmail(user.getEmail());
+            if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+                throw new ConflictException("User with email " + user.getEmail() + " already exists");
+            }
+            exsistingUser.setEmail(user.getEmail());
         }
         if (user.getName() != null) {
-            updatedUser.setName(user.getName());
+            exsistingUser.setName(user.getName());
         }
-        return updatedUser;
+        return userRepository.save(exsistingUser);
     }
 
     @Override
     public List<User> getAllUsers() {
-        return users;
-    }
-
-    private Long setCurrentId() {
-        return (long) (users.size() + 1);
+        return userRepository.findAll();
     }
 }
