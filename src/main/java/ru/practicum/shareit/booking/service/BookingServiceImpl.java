@@ -67,80 +67,58 @@ public class BookingServiceImpl implements BookingService {
     @Transactional
     public List<BookingDtoOut> findAll(Long bookerId, String state) {
         userService.findById(bookerId);
-        switch (validState(state)) {
-            case ALL:
-                return bookingRepository.findAllBookingsByBookerId(bookerId).stream()
-                        .map(BookingMapper::toBookingOut)
-                        .collect(Collectors.toList());
-            case CURRENT:
-                return bookingRepository.findAllCurrentBookingsByBookerId(bookerId, LocalDateTime.now()).stream()
-                        .map(BookingMapper::toBookingOut)
-                        .collect(Collectors.toList());
-
-            case PAST:
-                return bookingRepository.findAllPastBookingsByBookerId(bookerId, LocalDateTime.now()).stream()
-                        .map(BookingMapper::toBookingOut)
-                        .collect(Collectors.toList());
-
-            case FUTURE:
-                return bookingRepository.findAllFutureBookingsByBookerId(bookerId, LocalDateTime.now()).stream()
-                        .map(BookingMapper::toBookingOut)
-                        .collect(Collectors.toList());
-
-            case WAITING:
-                return bookingRepository.findAllWaitingBookingsByBookerId(bookerId, LocalDateTime.now()).stream()
-                        .map(BookingMapper::toBookingOut)
-                        .collect(Collectors.toList());
-
-            case REJECTED:
-                return bookingRepository.findAllRejectedBookingsByBookerId(bookerId, LocalDateTime.now()).stream()
-                        .map(BookingMapper::toBookingOut)
-                        .collect(Collectors.toList());
-            default:
-                throw new IllegalArgumentException("Unknown state: UNSUPPORTED_STATUS");
-        }
+        return switch (validState(state)) {
+            case ALL -> bookingRepository.findAllBookingsByBookerId(bookerId).stream()
+                    .map(BookingMapper::toBookingOut)
+                    .collect(Collectors.toList());
+            case CURRENT -> bookingRepository.findAllCurrentBookingsByBookerId(bookerId, LocalDateTime.now()).stream()
+                    .map(BookingMapper::toBookingOut)
+                    .collect(Collectors.toList());
+            case PAST -> bookingRepository.findAllPastBookingsByBookerId(bookerId, LocalDateTime.now()).stream()
+                    .map(BookingMapper::toBookingOut)
+                    .collect(Collectors.toList());
+            case FUTURE -> bookingRepository.findAllFutureBookingsByBookerId(bookerId, LocalDateTime.now()).stream()
+                    .map(BookingMapper::toBookingOut)
+                    .collect(Collectors.toList());
+            case WAITING -> bookingRepository.findAllWaitingBookingsByBookerId(bookerId, LocalDateTime.now()).stream()
+                    .map(BookingMapper::toBookingOut)
+                    .collect(Collectors.toList());
+            case REJECTED -> bookingRepository.findAllRejectedBookingsByBookerId(bookerId, LocalDateTime.now()).stream()
+                    .map(BookingMapper::toBookingOut)
+                    .collect(Collectors.toList());
+            default -> throw new IllegalArgumentException("Unknown state: UNSUPPORTED_STATUS");
+        };
     }
 
     @Override
     @Transactional
     public List<BookingDtoOut> findAllOwner(Long ownerId, String state) {
         userService.findById(ownerId);
-        switch (validState(state)) {
-            case ALL:
-                return bookingRepository.findAllBookingsByOwnerId(ownerId).stream()
-                        .map(BookingMapper::toBookingOut)
-                        .collect(Collectors.toList());
-            case CURRENT:
-                return bookingRepository.findAllCurrentBookingsByOwnerId(ownerId, LocalDateTime.now()).stream()
-                        .map(BookingMapper::toBookingOut)
-                        .collect(Collectors.toList());
-
-            case PAST:
-                return bookingRepository.findAllPastBookingsByOwnerId(ownerId, LocalDateTime.now()).stream()
-                        .map(BookingMapper::toBookingOut)
-                        .collect(Collectors.toList());
-
-            case FUTURE:
-                return bookingRepository.findAllFutureBookingsByOwnerId(ownerId, LocalDateTime.now()).stream()
-                        .map(BookingMapper::toBookingOut)
-                        .collect(Collectors.toList());
-
-            case WAITING:
-                return bookingRepository.findAllWaitingBookingsByOwnerId(ownerId, LocalDateTime.now()).stream()
-                        .map(BookingMapper::toBookingOut)
-                        .collect(Collectors.toList());
-
-            case REJECTED:
-                return bookingRepository.findAllRejectedBookingsByOwnerId(ownerId).stream()
-                        .map(BookingMapper::toBookingOut)
-                        .collect(Collectors.toList());
-            default:
-                throw new IllegalArgumentException("Unknown state: UNSUPPORTED_STATUS");
-        }
+        return switch (validState(state)) {
+            case ALL -> bookingRepository.findAllBookingsByOwnerId(ownerId).stream()
+                    .map(BookingMapper::toBookingOut)
+                    .collect(Collectors.toList());
+            case CURRENT -> bookingRepository.findAllCurrentBookingsByOwnerId(ownerId, LocalDateTime.now()).stream()
+                    .map(BookingMapper::toBookingOut)
+                    .collect(Collectors.toList());
+            case PAST -> bookingRepository.findAllPastBookingsByOwnerId(ownerId, LocalDateTime.now()).stream()
+                    .map(BookingMapper::toBookingOut)
+                    .collect(Collectors.toList());
+            case FUTURE -> bookingRepository.findAllFutureBookingsByOwnerId(ownerId, LocalDateTime.now()).stream()
+                    .map(BookingMapper::toBookingOut)
+                    .collect(Collectors.toList());
+            case WAITING -> bookingRepository.findAllWaitingBookingsByOwnerId(ownerId, LocalDateTime.now()).stream()
+                    .map(BookingMapper::toBookingOut)
+                    .collect(Collectors.toList());
+            case REJECTED -> bookingRepository.findAllRejectedBookingsByOwnerId(ownerId).stream()
+                    .map(BookingMapper::toBookingOut)
+                    .collect(Collectors.toList());
+            default -> throw new IllegalArgumentException("Unknown state: UNSUPPORTED_STATUS");
+        };
     }
 
 
-    private void bookingValidation(BookingDto bookingDto, User user, Item item) {
+    public void bookingValidation(BookingDto bookingDto, User user, Item item) {
         if (!item.getAvailable()) {
             throw new ValidationException("Вещь не доступена для бронирования.");
         }
@@ -152,7 +130,7 @@ public class BookingServiceImpl implements BookingService {
         }
     }
 
-    private BookingState validState(String bookingState) {
+    public BookingState validState(String bookingState) {
         BookingState state = BookingState.from(bookingState);
         if (state == null) {
             throw new IllegalArgumentException("Unknown state: " + bookingState);
@@ -160,7 +138,7 @@ public class BookingServiceImpl implements BookingService {
         return state;
     }
 
-    private Booking validateBookingDetails(Long userId, Long bookingId, Integer number) {
+    public Booking validateBookingDetails(Long userId, Long bookingId, Integer number) {
         Optional<Booking> bookingById = bookingRepository.findById(bookingId);
         if (bookingById.isEmpty()) {
             throw new NotFoundException("Бронь не найдена.");
