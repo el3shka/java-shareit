@@ -46,8 +46,6 @@
 		</dependency>
 
 		<dependency>
-<<<<<<< HEAD
-=======
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 		</dependency>
@@ -59,7 +57,6 @@
 		</dependency>
 
 		<dependency>
->>>>>>> main
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
@@ -75,8 +72,7 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-<<<<<<< HEAD
-=======
+
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -101,7 +97,7 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 
->>>>>>> main
+
 	</dependencies>
 
 	<build>
