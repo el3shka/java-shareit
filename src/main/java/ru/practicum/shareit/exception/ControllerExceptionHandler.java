@@ -1,4 +1,4 @@
-package ru.practicum.shareit.user;
+package ru.practicum.shareit.exception;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -9,12 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-import ru.practicum.shareit.user.exception.ConflictException;
-import ru.practicum.shareit.user.exception.NotFoundException;
-import ru.practicum.shareit.user.exception.ValidationException;
 
 import java.util.stream.Collectors;
 
@@ -23,6 +21,7 @@ import java.util.stream.Collectors;
 public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     protected ProblemDetail handleNotFoundException(NotFoundException exception) {
         log.warn(exception.getMessage());
         return ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, exception.getMessage());

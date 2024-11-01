@@ -6,12 +6,17 @@ import jakarta.validation.constraints.Size;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import ru.practicum.shareit.booking.model.Booking;
+import ru.practicum.shareit.comment.dto.CommentDto;
 import ru.practicum.shareit.request.model.ItemRequest;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
 @EqualsAndHashCode
-public class ItemDto {
+public class ItemDetailsDto {
 
     private Long id;
     @NotBlank
@@ -21,4 +26,7 @@ public class ItemDto {
     private String description;
     private Boolean available;
     private ItemRequest request;
+    private Booking lastBooking;
+    private Booking nextBooking;
+    private List<CommentDto> comments = new ArrayList<>();
 }
