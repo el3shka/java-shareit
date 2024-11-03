@@ -23,6 +23,11 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                     <version>2.4</version>
+                  <configuration>
+                          <source>1.8</source>
+                           <target>1.8</target>
+                  </configuration>
                 <executions>
                     <execution>
                         <id>default-compile</id>
@@ -60,6 +65,7 @@
                         <exclude>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
+                                <version>1.16.22</version> 
                         </exclude>
                     </excludes>
                 </configuration>
