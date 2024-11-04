@@ -23,6 +23,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                  <configuration>
+                           <source>1.8</source>
+                           <target>1.8</target>
+                  </configuration>
                 <executions>
                     <execution>
                         <id>default-compile</id>
@@ -35,6 +39,7 @@
                                 <path>
                                     <groupId>org.springframework.boot</groupId>
                                     <artifactId>spring-boot-configuration-processor</artifactId>
+                                         <version>1.6.0</version>
                                 </path>
                             </annotationProcessorPaths>
                         </configuration>
@@ -46,6 +51,7 @@
                                 <path>
                                     <groupId>org.springframework.boot</groupId>
                                     <artifactId>spring-boot-configuration-processor</artifactId>
+                                         <version>1.6.0</version>
                                 </path>
                             </annotationProcessorPaths>
                         </configuration>
@@ -55,6 +61,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                     <version>1.6.0</version>
                 <configuration>
                     <excludes>
                         <exclude>
