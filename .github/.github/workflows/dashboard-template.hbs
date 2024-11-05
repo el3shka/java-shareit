@@ -1,3 +1,4 @@
+<!-- 
 <!DOCTYPE html>
 <html lang="en" style="overflow-y: scroll;">
 <head>
@@ -1245,7 +1246,7 @@ body.theme-light code {
 <script>hljs.initHighlightingOnLoad();</script>
 {{/eq}}
 
-<!-- Set slider initial position depending on the localstorage state -->
+#Set slider initial position depending on the localstorage state
 
 <script>
 (function () {
@@ -1263,7 +1264,7 @@ body.theme-light code {
 })();
 </script>
 
-<!-- Data Table Configuration -->
+#Data Table Configuration
 
 <script>
 $(document).ready( function () {
@@ -1278,7 +1279,7 @@ $(document).ready( function () {
 });
 </script>
 
-<!-- Tooltip Configuration -->
+#Tooltip Configuration
 
 <script>
 $(document).ready(function() {
@@ -1288,8 +1289,7 @@ $(document).ready(function() {
 })
 </script>
 
-<!-- Show/Hide The Folders -->
-
+#Show/Hide The Folders
 <script>
 $('#openAll').on('click', function(e) {
 let clickCount = $(this).data("clickCount") || 1
@@ -1314,7 +1314,7 @@ $(this).data("clickCount", clickCount)
 })
 </script>
 
-<!-- Show/Hide The Requests -->
+#Show/Hide The Requests
 
 <script>
 $('#openAllRequests').on('click', function(e) {
@@ -1348,7 +1348,7 @@ $(this).data("clickCount", clickCount)
 })
 </script>
 
-<!-- Show/Hide The Skipped Tests -->
+#Show/Hide The Skipped Tests#
 
 <script>
 $('#openAllSkipped').on('click', function(e) {
@@ -1382,7 +1382,7 @@ $(this).data("clickCount", clickCount)
 })
 </script>
 
-<!-- Show/Hide The Failures -->
+#Show/Hide The Failures #
 
 <script>
 $('#openAllFailed').on('click', function(e) {
@@ -1418,7 +1418,7 @@ $(this).data("clickCount", clickCount)
 })
 </script>
 
-<!-- Pretty Print the Response Body-->
+#Pretty Print the Response Body#
 
 <script>
 function isJSON(data)
@@ -1477,8 +1477,7 @@ $(".prettyPrint").each(function () {
 </script>
 
 
-<!-- Copy Response Body To Clipboard -->
-
+# Copy Response Body To Clipboard #
 <script>
     var clipboard = new ClipboardJS('.copyButton');
 
@@ -1503,7 +1502,7 @@ $(".prettyPrint").each(function () {
 
 </script>
 
-<!-- Render the Description Markdown and link in the test failures -->
+# Render the Description Markdown and link in the test failures#
 
 <script>
     const remarkable = new Remarkable();
@@ -1520,7 +1519,7 @@ $(".prettyPrint").each(function () {
     }
 </script>
 
-<!-- Show/Hide The Toggles When Scrolling The Page -->
+# Show/Hide The Toggles When Scrolling The Page #
 
 <script>
 window.onscroll = function() {scrollFunction()};
@@ -1564,8 +1563,7 @@ function topFunction() {
 }
 </script>
 
-<!-- Creates The Iteration Tabs -->
-
+# Creates The Iteration Tabs #
 <script type="text/javascript">
     "use strict";
 
@@ -1627,7 +1625,7 @@ window.onload = function () {
 }
 </script>
 
-<!-- Create the Selected Iteration Label -->
+#Create the Selected Iteration Label#
 
 <script>
 $(document).ready(function(){
@@ -1639,7 +1637,7 @@ $(document).ready(function(){
 });
 </script>
 
-<!-- Filter Action for the Iterations -->
+# Filter Action for the Iterations #
 
 <script>
 $("#filterInput").on("input paste", function() {
@@ -1651,7 +1649,7 @@ $("#filterInput").on("input paste", function() {
 });
 </script>
 
-<!-- Showing the Failed Interations -->
+# Showing the Failed Interations #
 
 <script>
 $('#showOnlyFailures').on('click', function(e) {
