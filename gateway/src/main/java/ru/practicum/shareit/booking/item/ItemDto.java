@@ -10,9 +10,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import ru.practicum.shareit.validationMarker.Marker;
 
-/**
- * TODO Sprint add-controllers.
- */
 @Data
 @EqualsAndHashCode(of = "id")
 @Builder

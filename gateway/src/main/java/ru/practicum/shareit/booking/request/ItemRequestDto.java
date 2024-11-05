@@ -10,9 +10,6 @@ import ru.practicum.shareit.validationMarker.Marker;
 
 import java.time.LocalDateTime;
 
-/**
- * TODO Sprint add-item-requests.
- */
 @Getter
 @Setter
 @AllArgsConstructor
